@@ -3,7 +3,7 @@
 Purpose:
 -----------------------------------------------------------------------------------
 We generate beta values for each single voxels for each subject and save them to 
-txt files for multi-comparison test.
+files for multi-comparison test.
 -----------------------------------------------------------------------------------
 
 """
@@ -35,22 +35,21 @@ conv_high_res_path = project_path + 'txt_output/conv_high_res/'
 
 # select your own subject
 subject_list = [str(i) for i in range(1,17)]
-run_list = [str(i) for i in range(1,4)]
+
 conv_list = [str(i) for i in range(1,5)]
 
-txt_paths = [('ds005_sub' + s.zfill(3) + '_t1r' + r +'_cond'+ c.zfill(3),\
-              conv_path + 'ds005_sub' + s.zfill(3) + '_t1r' + r +'_conv001_canonical.txt', \
-              conv_path + 'ds005_sub' + s.zfill(3) + '_t1r' + r +'_conv002_canonical.txt', \
-              conv_path + 'ds005_sub' + s.zfill(3) + '_t1r' + r +'_conv003_canonical.txt', \
-              conv_path + 'ds005_sub' + s.zfill(3) + '_t1r' + r +'_conv004_canonical.txt', \
-              '../../../data/ds005_2/sub' + s.zfill(3) + '/model/model001/task001_run' \
+txt_paths = [('ds005_sub' + s.zfill(3) + '_t1r1' +'_cond'+ c.zfill(3),\
+              conv_path + 'ds005_sub' + s.zfill(3) + '_t1r1' +'_conv001_canonical.txt', \
+              conv_path + 'ds005_sub' + s.zfill(3) + '_t1r1' +'_conv002_canonical.txt', \
+              conv_path + 'ds005_sub' + s.zfill(3) + '_t1r1' +'_conv003_canonical.txt', \
+              conv_path + 'ds005_sub' + s.zfill(3) + '_t1r1' +'_conv004_canonical.txt', \
+              '../../../data/ds005_2/sub' + s.zfill(3) + '/model/model001/task001_run001' \
               #for me it's ds005_2... the filtered data set
-              + r.zfill(3) + '.feat/filtered_func_data_mni.nii.gz',\
-              conv_high_res_path + 'ds005_sub' + s.zfill(3) + '_t1r' + r +'_conv_001_high_res.txt',\
-              conv_high_res_path + 'ds005_sub' + s.zfill(3) + '_t1r' + r +'_conv_002_high_res.txt',\
-              conv_high_res_path + 'ds005_sub' + s.zfill(3) + '_t1r' + r +'_conv_003_high_res.txt',\
-              conv_high_res_path + 'ds005_sub' + s.zfill(3) + '_t1r' + r +'_conv_004_high_res.txt') \
-                for r in run_list \
+              + '.feat/filtered_func_data_mni.nii.gz',\
+              conv_high_res_path + 'ds005_sub' + s.zfill(3) + '_t1r1' +'_conv_001_high_res.txt',\
+              conv_high_res_path + 'ds005_sub' + s.zfill(3) + '_t1r1' +'_conv_002_high_res.txt',\
+              conv_high_res_path + 'ds005_sub' + s.zfill(3) + '_t1r1' +'_conv_003_high_res.txt',\
+              conv_high_res_path + 'ds005_sub' + s.zfill(3) + '_t1r1' +'_conv_004_high_res.txt') \
                 for s in subject_list \
                 for c in conv_list]
 
@@ -97,5 +96,8 @@ for txt_path in txt_paths:
     beta_4d_smooth_high_res_dist = beta_4d_smooth_high_res[...,4]
 
     location_of_txt= dirs[0]
-    np.savetxt(location_of_txt + '/' +name[0:17]+ "_multi_beta.txt",beta_4d_smooth_high_res)
+    np.save(location_of_txt + '/' +name[0:17]+ "_beta_task",beta_4d_smooth_high_res_task)
+    np.save(location_of_txt + '/' +name[0:17]+ "_beta_gain",beta_4d_smooth_high_res_gain)
+    np.save(location_of_txt + '/' +name[0:17]+ "_beta_loss",beta_4d_smooth_high_res_loss)
+    np.save(location_of_txt + '/' +name[0:17]+ "_beta_dist",beta_4d_smooth_high_res_dist)
     
