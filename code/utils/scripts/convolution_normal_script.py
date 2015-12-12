@@ -26,7 +26,6 @@ import nibabel as nib
 from stimuli import *
 from scipy.stats import gamma
 from organize_behavior_data import *
-from load_BOLD import *
 
 # Create the necessary directories if they do not exist
 dirs = ['../../../txt_output', '../../../txt_output/conv_normal',\
