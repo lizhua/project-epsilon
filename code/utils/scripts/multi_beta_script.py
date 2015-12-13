@@ -11,12 +11,11 @@ files for multi-comparison test.
 
 import sys, os
 ##sys.path.append(os.path.join(os.path.dirname(__file__), "../functions/"))
-sys.path.append(os.path.join(os.path.dirname(__file__), "../"))
+sys.path.append(os.path.join(os.path.dirname('__file__'), "../"))
 import numpy as np
 from glm import *
 #from convolution_normal_script import X_matrix
 #from convolution_high_res_script import X_matrix_high_res
-from load_BOLD import *
 import nibabel as nib
 import matplotlib.pyplot as plt
 from smoothing import *
@@ -34,7 +33,7 @@ conv_path = project_path + 'txt_output/conv_normal/'
 conv_high_res_path = project_path + 'txt_output/conv_high_res/'
 
 # select your own subject
-subject_list = [str(i) for i in range(1,17)]
+subject_list = ['1']#[str(i) for i in range(1,17)]
 
 conv_list = [str(i) for i in range(1,5)]
 
@@ -43,7 +42,7 @@ txt_paths = [('ds005_sub' + s.zfill(3) + '_t1r1' +'_cond'+ c.zfill(3),\
               conv_path + 'ds005_sub' + s.zfill(3) + '_t1r1' +'_conv002_canonical.txt', \
               conv_path + 'ds005_sub' + s.zfill(3) + '_t1r1' +'_conv003_canonical.txt', \
               conv_path + 'ds005_sub' + s.zfill(3) + '_t1r1' +'_conv004_canonical.txt', \
-              '../../../data/ds005_2/sub' + s.zfill(3) + '/model/model001/task001_run001' \
+              '../../../data/ds005_2/sub' + s.zfill(3) + '/model/model001/task001_run002' \
               #for me (Min) it's ds005_2... the filtered data set
               + '.feat/filtered_func_data_mni.nii.gz',\
               conv_high_res_path + 'ds005_sub' + s.zfill(3) + '_t1r1' +'_conv_001_high_res.txt',\
@@ -96,8 +95,8 @@ for txt_path in txt_paths:
     beta_4d_smooth_high_res_dist = beta_4d_smooth_high_res[...,4]
 
     location_of_txt= dirs[0]
-    np.save(location_of_txt + '/' +name[0:17]+ "_beta_task",beta_4d_smooth_high_res_task)
-    np.save(location_of_txt + '/' +name[0:17]+ "_beta_gain",beta_4d_smooth_high_res_gain)
-    np.save(location_of_txt + '/' +name[0:17]+ "_beta_loss",beta_4d_smooth_high_res_loss)
-    np.save(location_of_txt + '/' +name[0:17]+ "_beta_dist",beta_4d_smooth_high_res_dist)
+    np.savetxt(location_of_txt + '/' +name[0:17]+ "_beta_task.txt",beta_4d_smooth_high_res_task.ravel())
+    np.savetxt(location_of_txt + '/' +name[0:17]+ "_beta_gain.txt",beta_4d_smooth_high_res_gain.ravel())
+    np.savetxt(location_of_txt + '/' +name[0:17]+ "_beta_loss.txt",beta_4d_smooth_high_res_loss.ravel())
+    np.savetxt(location_of_txt + '/' +name[0:17]+ "_beta_dist.txt",beta_4d_smooth_high_res_dist.ravel())
     

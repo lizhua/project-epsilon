@@ -38,16 +38,20 @@ dist = dict()
 
 #load all of them
 for x in range(1,17):
-	task[x] = np.load(dirs[0]+'/ds005_sub'+str(x).zfill(3)+'_t1r1_beta_task.npy')
+	temp = np.loadtxt(dirs[0]+'/ds005_sub'+str(x).zfill(3)+'_t1r1_beta_task.txt')
+	task[x] = temp.reshape(91,109,91)
 
 for x in range(1,17):
-	gain[x] = np.load(dirs[0]+'/ds005_sub'+str(x).zfill(3)+'_t1r1_beta_gain.npy')
+	temp = np.loadtxt(dirs[0]+'/ds005_sub'+str(x).zfill(3)+'_t1r1_beta_gain.txt')
+	gain[x] = temp.reshape(91,109,91)
 
 for x in range(1,17):
-	loss[x] = np.load(dirs[0]+'/ds005_sub'+str(x).zfill(3)+'_t1r1_beta_loss.npy')
+	temp = np.loadtxt(dirs[0]+'/ds005_sub'+str(x).zfill(3)+'_t1r1_beta_loss.txt')
+	loss[x] = temp.reshape(91,109,91)
 
 for x in range(1,17):
-	dist[x] = np.load(dirs[0]+'/ds005_sub'+str(x).zfill(3)+'_t1r1_beta_dist.npy')
+	temp = np.loadtxt(dirs[0]+'/ds005_sub'+str(x).zfill(3)+'_t1r1_beta_dist.txt')
+	dist[x] = temp.reshape(91,109,91)
 
 #calculate mean and plot (let's try for task)
 task_sum = task[1]
@@ -61,7 +65,9 @@ plt.imshow(beta_plot,interpolation='nearest', cmap='seismic')
 
 #calculate variance and plot
 
+
 #will use sem here (standard error across 16 subjects)
+
 
 #calculate t-test and plot
 
