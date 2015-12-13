@@ -1,5 +1,7 @@
+.PHONY: test coverage
+
 test:
-	nosetests utils
+	nosetests utils/tests 
 
 coverage:
-	nosetests utils --with-coverage --cover-package=utils 
+	nosetests utils/tests --with-coverage --cover-package=utils/functions 

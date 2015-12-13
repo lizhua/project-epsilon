@@ -3,3 +3,6 @@
 #data
 data/ds005/
 data/ds005_raw_checksums.txt
+data/ds005_filtered/
+dwn_filtered_data_script.sh
+data/ds114/

@@ -1,43 +1,22 @@
-from __future__ import print_function, division
+"""data.py
 
-import hashlib
-import os
-import codecs
+Simple script to validate the downloaded data:
+ - ds005
+ - ds005_filtered
+ - ds114
+"""
 
-def create_dict(filename):
-    newDict={}
-    f=open(filename)
-    num_lines = sum(1 for line in open(filename))
-    for line,i in zip(f,range(0,num_lines)):
-        info = line.split()
-        newDict[info[1]]=info[0]
-    f.close()
-    return newDict
+import pdb
+import json
 
-def generate_file_md5(filename, blocksize=2**20):
-    m = hashlib.md5()
-    f= open(filename)
-    while True:
-        buf = f.read(blocksize)
-        #codecs.encode(buf,'ISO-8859-1')
-        if not buf:
-            break
-        m.update(buf)
-    f.close()
-    return m.hexdigest()
+from data_hashes import check_hashes 
 
-
-def check_hashes(newDict):
-    all_good = True
-    for k, v in newDict.items():
-        digest = generate_file_md5(k)
-        if v == digest:
-            print("The file {0} has the correct hash.".format(k))
-        else:
-            print("ERROR: The file {0} has the WRONG hash!".format(k))
-            all_good = False
-    return all_good
-
-if __name__=="__main__":
-    newDict = create_dict('ds005_raw_checksums.txt')
-    print(check_hashes(newDict))
+if __name__ == "__main__":
+#TODO: add the folder ds005 here
+    file_ls = ['ds005_filtered_hashes.json',\
+              # 'ds005_hashes.json',\
+               'ds114_hashes.json']
+    for f in file_ls:
+        with open(f) as infile:
+            f_dict = json.load(infile)
+            check_hashes(f_dict)

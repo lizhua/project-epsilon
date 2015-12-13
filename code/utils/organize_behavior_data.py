@@ -99,45 +99,6 @@ def load_in_dataframe(subject_number):
 	
 	return run_total
 
-def load_model_one(subject_number, run_number):
-	""" Return the model (conditions) of subject's single run
-
-    Parameters
-    ----------
-    subject_number : int
-    	Subject Number
-    run_number : int
-    	Run Number	
-    
-    Returns
-    -------
-    task : np.array
-    	the model (conditions) of subject's single run 
-    gain : np.array
-    	the model (conditions) of subject's single run
-    loss : np.array
-    	the model (conditions) of subject's single run
-    dist : np.array
-    	the model (conditions) of subject's single run
-        
-    """
-
-	task=np.loadtxt(data_location+'sub00%s/model/model001/onsets/task001_run00%s/cond001.txt'%(subject_number,run_number),
-		skiprows=1)
-	gain=np.loadtxt(data_location+'sub00%s/model/model001/onsets/task001_run00%s/cond002.txt'%(subject_number,run_number),
-		skiprows=1)
-	loss=np.loadtxt(data_location+'sub00%s/model/model001/onsets/task001_run00%s/cond003.txt'%(subject_number,run_number),
-		skiprows=1)
-	dist=np.loadtxt(data_location+'sub00%s/model/model001/onsets/task001_run00%s/cond004.txt'%(subject_number,run_number),
-		skiprows=1)
-
-	#delete the rows that contain -1 in respcat (these are errors in experiment so we should take them out
-
-	return task, gain, loss, dist
-
-
-
-
 
 
 

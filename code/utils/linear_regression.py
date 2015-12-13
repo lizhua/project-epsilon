@@ -12,8 +12,6 @@ from scipy.stats import t
 import numpy.linalg as npl
 import math
 
-%matplotlib
-
 
 
 
