@@ -1,141 +1,26 @@
-download:
+.PHONY: download_data validate_data download_filtered_data download_test_data
+download_data:
 	wget http://openfmri.s3.amazonaws.com/tarballs/ds005_raw.tgz
-	tar xvzf ds005_raw.tgz
+	tar -xvzf ds005_raw.tgz
 
-validate:
+download_filtered_data:
+	variable=Stop python ../data/filtered_data_sh_script.py
+	variable=Stop bash ../data/dwn_filtered_data_script.sh
+
+validate_data:
 	wget http://openfmri.s3.amazonaws.com/tarballs/ds005_raw_checksums.txt
+	python get_ds005_hashes_from_txt.py
 	python data.py
+ 	
+download_test_data:
+	wget -P ../data/ds114/sub009/BOLD/task002_run001/ http://www.jarrodmillman.com/rcsds/_downloads/ds114_sub009_t2r1.nii
+	wget -P ../data/ds114/sub009/behav/task002_run001/ http://www.jarrodmillman.com/rcsds/_downloads/ds114_sub009_t2r1_cond.txt
+	wget -P ../data/ds114/sub009/behav/task002_run001/ http://www.jarrodmillman.com/rcsds/_downloads/ds114_sub009_t2r1_conv.txt
 
-unzip:
-	gzip -d ds005/sub001/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub001/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub001/anatomy/highres001.nii.gz
-	gzip -d ds005/sub001/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub001/anatomy/inplane.nii.gz
-	gzip -d ds005/sub001/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub001/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub001/BOLD/task001_run003/bold.nii.gz
-	gzip -d ds005/sub002/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub002/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub002/anatomy/highres001.nii.gz
-	gzip -d ds005/sub002/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub002/anatomy/inplane.nii.gz
-	gzip -d ds005/sub002/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub002/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub002/BOLD/task001_run003/bold.nii.gz
-	gzip -d ds005/sub003/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub003/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub003/anatomy/highres001.nii.gz
-	gzip -d ds005/sub003/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub003/anatomy/inplane.nii.gz
-	gzip -d ds005/sub003/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub003/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub003/BOLD/task001_run003/bold.nii.gz
-	gzip -d ds005/sub004/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub004/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub004/anatomy/highres001.nii.gz
-	gzip -d ds005/sub004/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub004/anatomy/inplane.nii.gz
-	gzip -d ds005/sub004/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub004/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub004/BOLD/task001_run003/bold.nii.gz		
-	gzip -d ds005/sub005/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub005/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub005/anatomy/highres001.nii.gz
-	gzip -d ds005/sub005/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub005/anatomy/inplane.nii.gz
-	gzip -d ds005/sub005/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub005/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub005/BOLD/task001_run003/bold.nii.gz
-	gzip -d ds005/sub006/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub006/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub006/anatomy/highres001.nii.gz
-	gzip -d ds005/sub006/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub006/anatomy/inplane.nii.gz
-	gzip -d ds005/sub006/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub006/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub006/BOLD/task001_run003/bold.nii.gz
-	gzip -d ds005/sub007/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub007/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub007/anatomy/highres001.nii.gz
-	gzip -d ds005/sub007/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub007/anatomy/inplane.nii.gz
-	gzip -d ds005/sub007/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub007/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub007/BOLD/task001_run003/bold.nii.gz
-	gzip -d ds005/sub008/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub008/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub008/anatomy/highres001.nii.gz
-	gzip -d ds005/sub008/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub008/anatomy/inplane.nii.gz
-	gzip -d ds005/sub008/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub008/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub008/BOLD/task001_run003/bold.nii.gz
-	gzip -d ds005/sub009/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub009/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub009/anatomy/highres001.nii.gz
-	gzip -d ds005/sub009/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub009/anatomy/inplane.nii.gz
-	gzip -d ds005/sub009/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub009/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub009/BOLD/task001_run003/bold.nii.gz
-	gzip -d ds005/sub010/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub010/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub010/anatomy/highres001.nii.gz
-	gzip -d ds005/sub010/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub010/anatomy/inplane.nii.gz
-	gzip -d ds005/sub010/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub010/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub010/BOLD/task001_run003/bold.nii.gz
-	gzip -d ds005/sub011/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub011/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub011/anatomy/highres001.nii.gz
-	gzip -d ds005/sub011/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub011/anatomy/inplane.nii.gz
-	gzip -d ds005/sub011/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub011/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub011/BOLD/task001_run003/bold.nii.gz
-	gzip -d ds005/sub012/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub012/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub012/anatomy/highres001.nii.gz
-	gzip -d ds005/sub012/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub012/anatomy/inplane.nii.gz
-	gzip -d ds005/sub012/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub012/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub012/BOLD/task001_run003/bold.nii.gz
-	gzip -d ds005/sub013/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub013/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub013/anatomy/highres001.nii.gz
-	gzip -d ds005/sub013/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub013/anatomy/inplane.nii.gz
-	gzip -d ds005/sub013/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub013/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub013/BOLD/task001_run003/bold.nii.gz
-	gzip -d ds005/sub014/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub014/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub014/anatomy/highres001.nii.gz
-	gzip -d ds005/sub014/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub014/anatomy/inplane.nii.gz
-	gzip -d ds005/sub014/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub014/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub014/BOLD/task001_run003/bold.nii.gz
-	gzip -d ds005/sub015/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub015/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub015/anatomy/highres001.nii.gz
-	gzip -d ds005/sub015/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub015/anatomy/inplane.nii.gz
-	gzip -d ds005/sub015/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub015/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub015/BOLD/task001_run003/bold.nii.gz
-	gzip -d ds005/sub016/anatomy/highres001_brain_mask.nii.gz
-	gzip -d ds005/sub016/anatomy/highres001_brain.nii.gz
-	gzip -d ds005/sub016/anatomy/highres001.nii.gz
-	gzip -d ds005/sub016/anatomy/inplane_brain.nii.gz
-	gzip -d ds005/sub016/anatomy/inplane.nii.gz
-	gzip -d ds005/sub016/BOLD/task001_run001/bold.nii.gz
-	gzip -d ds005/sub016/BOLD/task001_run002/bold.nii.gz	
-	gzip -d ds005/sub016/BOLD/task001_run003/bold.nii.gz
+test: 
+	 nosetests tests 
 
-
+coverage:
+	 nosetests tests --with-coverage --cover-package=data_hashes.py 
 
 

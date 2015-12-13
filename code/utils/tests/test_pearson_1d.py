@@ -6,32 +6,17 @@ Run with::
     nosetests test_pearson_1d.py
 
 This is a test module.
-
-It is designed to be run the with the "nose" testing package (via the
-"nosetests" script.
-
-Nose will look for any functions with "test" in their names, and run them.
-Nose reports any errors, or any failures.
-
-A failure is where one of the test conditions run with an "assert" command
-fails.  For example, if I did:
-
-    assert_almost_equal(1, 2)
-
-then this would "fail".
-
-So we use the tests to check that the results of our function are (still) as we
-expect.
 """
 # Python 3 compatibility
 from __future__ import absolute_import, division, print_function
-
-import numpy as np
-
-from .. import pearson
-
 from numpy.testing import assert_almost_equal
 
+import numpy as np
+import sys, os, pdb
+
+#Specicy the path for functions
+sys.path.append(os.path.join(os.path.dirname(__file__), "../functions/"))
+import pearson
 
 def test_pearson_1d():
     # Test pearson_1d routine

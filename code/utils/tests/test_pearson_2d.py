@@ -4,16 +4,18 @@ Test Pearson module, pearson_2d function
 Run with::
 
     nosetests test_pearson_2d.py
+This is a test module.
 """
 # Python 3 compatibility
 from __future__ import print_function, division
-
-import numpy as np
-
-from .. import pearson
-
 from numpy.testing import assert_almost_equal
 
+import numpy as np
+import sys, os, pdb
+
+#Specify the path for functions
+sys.path.append(os.path.join(os.path.dirname(__file__), "../functions/"))
+import pearson
 
 def test_pearson_2d():
     # Test pearson_2d routine

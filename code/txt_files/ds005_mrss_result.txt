@@ -1,3 +1,0 @@
-MRSS of multiple regression for subject 1, run 1 is: 40.8295227583
-
-MRSS of multiple regression for subject 1, run 1, using the smoothed data is: 2.96624934536
