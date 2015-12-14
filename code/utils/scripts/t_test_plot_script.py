@@ -6,13 +6,15 @@ For each subject each run each condition, plot the t statistics
 -----------------------------------------------------------
 
 """
+
+
 import sys, os
 sys.path.append(os.path.join(os.path.dirname(__file__), "../functions/"))
 
 from t_test import *
 from smoothing import *
 from matplotlib import colors
-from visualization import *
+from plot_mosaic import * 
 
 import numpy as np
 import nibabel as nib
@@ -25,20 +27,22 @@ for d in dirs:
     if not os.path.exists(d):
         os.makedirs(d)
 
-# Locate the different paths
+# locate the different paths
 project_path = '../../../'
-data_path = project_path + 'data/ds005/'
+data_path = project_path + 'data/'
 txt_path = project_path + 'txt_output/conv_high_res/'
 #txt_path = project_path + 'txt_output/conv_normal/'
-path_dict = {'data_filtered':{ 
-			      'type' : 'filtered',
+path_dict = {'data_filtered':{
+	   		      'folder' : 'ds005_2/', 
 			      'bold_img_name' : 'filtered_func_data_mni.nii.gz',
-			      'run_path' : 'model/model001/'
+			      'run_path' : 'model/model001/',
+			      'feat' : '.feat/'
 			     },
              'data_original':{
-		       	      'type' : '',
+			      'folder' : 'ds005/', 
                               'bold_img_name' : 'bold.nii.gz',
-                              'run_path' : 'BOLD/'
+                              'run_path' : 'BOLD/',
+			      'feat' : '/'
 			     }}
 
 # TODO: uncomment for final version
@@ -48,10 +52,12 @@ run_list = [str(i) for i in range(1,4)]
 cond_list = [str(i) for i in range(1,5)]
 
 #TODO: Change to relevant path for data or other thing
-d = path_dict['data_original'] #OR path_dict['data_filtered']
-images_paths = [('ds005' + d['type'] +'_sub' + s.zfill(3) + '_t1r' + r, \
-                 data_path + 'sub%s/'%(s.zfill(3)) + d['run_path'] \
-                 + 'task001_run%s/%s' %(r.zfill(3), d['bold_img_name'])) \
+d = path_dict['data_original']
+#OR
+#d =  path_dict['data_filtered']
+images_paths = [('ds005' +'_sub' + s.zfill(3) + '_t1r' + r, \
+                 data_path + d['folder'] + 'sub%s/'%(s.zfill(3)) + d['run_path'] \
+                 + 'task001_run%s'%(r.zfill(3))+d['feat']+'%s'%( d['bold_img_name'])) \
                  for r in run_list \
                  for s in subject_list]
 
@@ -88,7 +94,7 @@ for image_path in images_paths:
         t_T = np.zeros(vol_shape)
         for z in range(vol_shape[2]):
             t_T[:, :, z] = t_newshape[:,:, z].T
-        t_plot = present_3d(t_T)
+        t_plot = plot_mosaic(t_T)
         plt.imshow(t_plot,interpolation='nearest', cmap='seismic')
         zero_out=max(abs(np.nanmin(t_T)),np.nanmax(t_T))
         plt.title(name+'_t_statistics'+'_cond_'+'_%s'%(cond+1))
